@@ -1,0 +1,55 @@
+				--- PARSER ---
+	Goal:	
+		Create an extremely dynamic method of storing data that can be "attached"
+		to another program.  
+
+	Subgoals:
+		1.  Have KeyValue pairs which can store any type of data.
+		2.  Store these KeyValue pairs in a "General Tree" system.
+		3.  Be able to have KeyValues inherit the Elements of a User-defined Type object.
+		4.  Have a program that can easily send instructions to the parser, and modify 
+				the KeyValue pairs as told to do so.
+		5.	Have a GUI program that will create instructions based on Intuitive User input.
+
+	Implementation.
+		1.	A "Key" struct that holds several bits of important information.
+			(a0).Whether the Value has been defined or not.
+
+			(a). The type of value that is being stored.
+			(b). The value that is being stored.
+					; Probably via an std::vector<char>
+			(c). The "name" of the Key.
+			(d). The "scope" of the Key. ex: "...:grandparent:parent"
+			(e). Boolean of whether that value inherits from another object or not.
+			(f). The Pointer to the object it inherits from if that object Inherits. Otherwise NULL.
+
+		2.  A "Node" struct that holds information on where it is in the tree, and it's assigned Key.
+			(a). The Pointer to the Key in which the Node holds value of.
+			(b). The Pointer to the Parent of the current Node.
+			(c). A list of pointers that directly refer to "children" of the current node.
+
+		3.	Using some kind of "Copy" system, copy and replace all KeyValue pairs at a given address,
+				and then store all of that Data in the New given address.
+				Ex:	"define Landon = new Person"
+					(this is script that would be sent to the Parser)
+
+		4.	Write a "Command" interpreter that can modify the "General Tree" data structure intuitively
+			Example commands:
+				append *Person Landon
+				define Landon:name("Landon Luman")
+				define Landon:age(19), dob("14NOV2001")
+				read Landon:name
+				read Landon:siblings
+				read Person
+
+		5.	Display all of the objects currently within "Scope" on a sidebar.  Whatever key is being 
+				hovered over will display its given value on the majority of the screen, as well as the type
+				of variable.
+				If it is a Vector, it will display information such as "first", "last", length, etc.
+				If you are over a Non-singular value Key, it will display how many of its objects
+					have yet to be defined.
+
+		Etc.
+			Within strings, you can use Macros that the GUI will read off based on what command is given.
+			Such as "His name was $(read !self:name).  He was $(read !self:height) inches tall, or $(inchestometers(self:height)) in meters."
+
